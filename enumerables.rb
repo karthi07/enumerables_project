@@ -63,7 +63,7 @@ module Enumerable
       if args
         my_each { |x| mcount += 1 if x == args }
       end
-      return mcount
+      mcount
     end
   end
 
