@@ -57,14 +57,13 @@ module Enumerable
     mcount = 0
     if block_given?
       my_each { |x| mcount += 1 if yield(x) }
-      return mcount
     else
       return size if args.nil?
 
       if args
         my_each { |x| mcount += 1 if x == args }
-        return mcount
       end
+      return mcount
     end
   end
 
