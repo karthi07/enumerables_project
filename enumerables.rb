@@ -1,8 +1,9 @@
 module Enumerable
+  # rubocop:disable Style/For
   def my_each
     return to_enum unless block_given?
 
-    (0...size).each do |i|
+    for i in 0...size 
       yield(to_a[i])
     end
   end
@@ -10,7 +11,7 @@ module Enumerable
   def my_each_with_index
     return to_enum unless block_given?
 
-    (0...size).each do |i|
+    for i in 0...size
       yield(to_a[i], i)
     end
     nil
@@ -26,31 +27,46 @@ module Enumerable
     res
   end
 
-  def my_all
-    return to_enum unless block_given?
-
+  def my_all?(args = nil)
+    res = true
     my_each do |x|
-      return false unless yield(x)
+      if block_given?
+        res = false unless yield(x)
+      elsif !args
+        res = false unless x
+      else
+        res = false unless args === x
+      end
     end
-    true
+    res
   end
 
-  def my_any
-    return to_enum unless block_given?
-
+  def my_any?(args = nil)
+    res = false
     my_each do |x|
-      return true if yield(x)
+      if block_given?
+        res = true if yield(x)
+      elsif !args
+        res = true if x
+      else
+        res = true if args === x
+      end
     end
-    false
+    res
   end
 
-  def my_none
-    return to_enum unless block_given?
-
+  def my_none?(args = nil)
+    res = true
     my_each do |x|
-      return false if yield(x)
+      if block_given?
+        res = false if yield(x)
+      elsif !args
+        res = false if x
+      else
+        res = false if args === x
+      end
     end
-    true
+    res
   end
 
   def my_count(args = nil)
@@ -63,8 +79,8 @@ module Enumerable
       if args
         my_each { |x| mcount += 1 if x == args }
       end
-      mcount
     end
+    mcount
   end
 
   def my_map(args = nil)
@@ -84,13 +100,18 @@ module Enumerable
     res = args[0] if args[0].is_a?(Integer)
     operator = args[0].is_a?(Symbol) ? args[0] : args[1]
     li = is_a?(Range) ? to_a : self
+    print operator
     if operator
+
       li.my_each { |item| res = res ? res.send(operator, item) : item }
       return res
     end
-    res = nil
     my_each { |item| res = res ? yield(res, item) : item }
 
     res
+  end
+
+  def multiply_els(arr)
+    arr.my_inject('*')
   end
 end
