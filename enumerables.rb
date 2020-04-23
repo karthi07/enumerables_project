@@ -99,7 +99,6 @@ module Enumerable
   end
 
   def my_inject(*args) # rubocop:disable Metrics/CyclomaticComplexity
-    # return to_enum unless block_given?
     res = args[0] if args[0].is_a?(Integer)
     operator = args[0].is_a?(Symbol) ? args[0] : args[1]
     li = is_a?(Range) ? to_a : self
