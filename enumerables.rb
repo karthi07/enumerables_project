@@ -1,7 +1,7 @@
 module Enumerable
   # rubocop:disable Style/For
   def my_each
-    return to_enum unless block_given?
+    return to_enum(:my_each) unless block_given?
 
     for i in 0...size
       yield(to_a[i])
@@ -9,7 +9,7 @@ module Enumerable
   end
 
   def my_each_with_index
-    return to_enum unless block_given?
+    return to_enum(:my_each_with_index) unless block_given?
 
     for i in 0...size
       yield(to_a[i], i)
@@ -19,7 +19,7 @@ module Enumerable
 
   # rubocop:enable Style/For
   def my_select
-    return to_enum unless block_given?
+    return to_enum(:my_select) unless block_given?
 
     res = []
     my_each do |x|
@@ -87,7 +87,7 @@ module Enumerable
   end
 
   def my_map(args = nil)
-    return to_enum unless block_given?
+    return to_enum(:my_map) unless block_given?
 
     res = []
     if args
@@ -102,7 +102,6 @@ module Enumerable
     res = args[0] if args[0].is_a?(Integer)
     operator = args[0].is_a?(Symbol) ? args[0] : args[1]
     li = is_a?(Range) ? to_a : self
-    print operator
     if operator
 
       li.my_each { |item| res = res ? res.send(operator, item) : item }
@@ -112,8 +111,8 @@ module Enumerable
 
     res
   end
+end
 
-  def multiply_els(arr)
-    arr.my_inject('*')
-  end
+def multiply_els(arr)
+  arr.my_inject(:*)
 end
