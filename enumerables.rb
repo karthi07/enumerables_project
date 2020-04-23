@@ -3,7 +3,7 @@ module Enumerable
   def my_each
     return to_enum unless block_given?
 
-    for i in 0...size 
+    for i in 0...size
       yield(to_a[i])
     end
   end
@@ -16,7 +16,8 @@ module Enumerable
     end
     nil
   end
-
+  
+  # rubocop:enable Style/For
   def my_select
     return to_enum unless block_given?
 
@@ -26,7 +27,8 @@ module Enumerable
     end
     res
   end
-
+  
+  # rubocop: disable Style/CaseEquality, Style/IfInsideElse
   def my_all?(args = nil)
     res = true
     my_each do |x|
@@ -69,6 +71,7 @@ module Enumerable
     res
   end
 
+  # rubocop: enable Style/CaseEquality, Style/IfInsideElse
   def my_count(args = nil)
     mcount = 0
     if block_given?
