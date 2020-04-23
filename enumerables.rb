@@ -16,7 +16,7 @@ module Enumerable
     end
     nil
   end
-  
+
   # rubocop:enable Style/For
   def my_select
     return to_enum unless block_given?
@@ -27,7 +27,7 @@ module Enumerable
     end
     res
   end
-  
+
   # rubocop: disable Style/CaseEquality, Style/IfInsideElse
   def my_all?(args = nil)
     res = true
