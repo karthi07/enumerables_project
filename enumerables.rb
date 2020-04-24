@@ -6,7 +6,8 @@ module Enumerable
   
   def my_each
     return to_enum(:my_each) unless block_given?
-
+    
+    print 'hello'
     for i in 0...size
       yield(to_a[i])
     end
