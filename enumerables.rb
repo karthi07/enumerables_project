@@ -1,5 +1,9 @@
 module Enumerable
   # rubocop:disable Style/For
+  
+  def new_method
+  end
+  
   def my_each
     return to_enum(:my_each) unless block_given?
 
