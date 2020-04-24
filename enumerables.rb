@@ -5,7 +5,7 @@ module Enumerable
   end
   
   def my_each
-    return to_enum(:my_each) unless block_given?
+    return to_enum(:my_each_function) unless block_given?
     
     print 'hello'
     for i in 0...size
